@@ -12,3 +12,9 @@ services:
             POSTGRES_PASSWORD: "madcoder"
     volumes:
             - /home/taehoon/Backup_Data/postgres_3dp_data:/var/lib/postgresql/data
+
+adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 58880:8080
