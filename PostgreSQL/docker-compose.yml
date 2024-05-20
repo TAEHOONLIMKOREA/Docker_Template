@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  postgres:
+  db:
     image: taehoony/postgres_server:1.1
     container_name: postgres
     restart: always
