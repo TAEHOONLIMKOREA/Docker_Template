@@ -1,0 +1,17 @@
+version: '3'
+services:
+  # 서비스명
+  vue-nginx:
+    image: 3pdx_diva_nginx_vuejs
+    container_name: DIVA_Frontend
+    ports:
+      - 58080:80
+    networks:
+      - 3pdx-bridge
+    restart: always
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+
+networks:
+  3pdx-bridge:
+    external: true

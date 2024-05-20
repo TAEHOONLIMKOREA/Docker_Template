@@ -1,0 +1,16 @@
+version: '3'
+networks:
+  3pdx-bridge:
+    external: true
+
+services:
+  # 서비스명
+  flask-gunicorn:
+    image: 3pdx_diva_flask_gunicorn
+    container_name: DIVA_Backend
+    ports:
+      - 55000:5000
+    networks:
+      - 3pdx-bridge
+    restart: always
+
