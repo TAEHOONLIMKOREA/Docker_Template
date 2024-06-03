@@ -3,9 +3,9 @@ version: '3.1'
 services:
   influxdb:
     image: influxdb:latest
-    container_name: influxdb
+    container_name: influx
     ports:
-      - "88086:8086"
+      - "58086:8086"
     environment:
       INFLUXDB_DB: mydb
       INFLUXDB_ADMIN_USER: keti_root
@@ -17,7 +17,7 @@ services:
     image: grafana/grafana:latest
     container_name: grafana
     ports:
-      - "83000:3000"
+      - "53000:3000"
     environment:
       - GF_SECURITY_ADMIN_USER=keti_root
       - GF_SECURITY_ADMIN_PASSWORD=madcoder
