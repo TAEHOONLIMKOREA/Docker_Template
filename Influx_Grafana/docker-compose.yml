@@ -1,0 +1,31 @@
+version: '3.1'
+
+services:
+  influxdb:
+    image: influxdb:latest
+    container_name: influxdb
+    ports:
+      - "88086:8086"
+    environment:
+      INFLUXDB_DB: mydb
+      INFLUXDB_ADMIN_USER: keti_root
+      INFLUXDB_ADMIN_PASSWORD: madcoder
+    volumes:
+      - influxdb-data:/var/lib/influxdb
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "83000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=keti_root
+      - GF_SECURITY_ADMIN_PASSWORD=madcoder
+    volumes:
+      - grafana-data:/var/lib/grafana
+
+volumes:
+  influxdb-data:
+    driver: local
+  grafana-data:
+    driver: local
