@@ -12,6 +12,8 @@ services:
       INFLUXDB_ADMIN_PASSWORD: madcoder
     volumes:
       - influxdb-data:/var/lib/influxdb
+    networks:
+      - net3dp
 
   grafana:
     image: grafana/grafana:latest
@@ -23,9 +25,15 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=madcoder
     volumes:
       - grafana-data:/var/lib/grafana
+    networks:
+      - net3dp
 
 volumes:
   influxdb-data:
     driver: local
   grafana-data:
     driver: local
+
+networks:
+  net3dp:
+    driver: bridge
