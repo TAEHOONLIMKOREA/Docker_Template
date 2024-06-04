@@ -12,6 +12,7 @@ services:
       INFLUXDB_ADMIN_PASSWORD: madcoder
     volumes:
       - influxdb-data:/var/lib/influxdb
+    restart: always
     networks:
       - net3dp
 
@@ -27,6 +28,7 @@ services:
       - grafana-data:/var/lib/grafana
     networks:
       - net3dp
+    restart: always
 
 volumes:
   influxdb-data:
