@@ -2,6 +2,7 @@ version: "3"
 
 services:
   db:
+    # 이미지는 최신이미지 사용하지 말기 ( 잘 안됨 )
     image: taehoony/postgres_3pdx:1.2
     container_name: postgres
     restart: always
