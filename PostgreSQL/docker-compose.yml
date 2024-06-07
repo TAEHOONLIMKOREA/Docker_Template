@@ -2,19 +2,21 @@ version: "3"
 
 services:
   db:
-    image: taehoony/postgres_server:1.1
+    image: postgres:latest
     container_name: postgres
     restart: always
     ports:
-            - "55432:5432"
+            - 54422:5432
     environment:
             POSTGRES_USER: "keti_superuser"
             POSTGRES_PASSWORD: "madcoder"
     volumes:
-            - /home/taehoon/Backup_Data/postgres_3dp_data:/var/lib/postgresql/data
+            - /home/keti_data/Data/Postgres/data:/var/lib/postgresql/data
 
-adminer:
-    image: adminer
+  adminer:
+    image: adminer:latest
+    depends_on:
+      - db
     restart: always
     ports:
-      - 58880:8080
+      - 54423:8080
