@@ -6,12 +6,13 @@ services:
     container_name: postgres
     restart: always
     ports:
-            - 54422:5432
+      - 54422:5432
     environment:
-            POSTGRES_USER: "keti_superuser"
-            POSTGRES_PASSWORD: "madcoder"
+      POSTGRES_USER: "keti_superuser"
+      POSTGRES_PASSWORD: "madcoder"
+      POSTGRES_DB: "NameOfDB"
     volumes:
-            - /home/keti_data/Data/Postgres/data:/var/lib/postgresql/data
+      - /home/keti_data/Data/Postgres/data:/var/lib/postgresql/data
 
   adminer:
     image: adminer:latest
