@@ -1,0 +1,51 @@
+version: "3"
+
+services:
+  db:
+    # 이미지는 최신이미지 사용하지 말기 ( 잘 안됨 )
+    image: taehoony/postgres:1.3
+    container_name: postgres
+    restart: always
+    ports:
+      - 54422:5432
+    environment:
+      POSTGRES_USER: "keti_root"
+      POSTGRES_PASSWORD: "madcoder"
+      POSTGRES_DB: "BRAI"
+    volumes:
+      - /home/keti_data/Data/Postgres/data:/var/lib/postgresql/data
+
+  adminer:
+    image: taehoony/adminer:1.0
+    depends_on:
+      - db
+    restart: always
+    ports:
+      - 54423:8080
+
+  minio:
+    image: taehoony/minio:1.3
+    command: server /data --console-address ":9001"
+    container_name: minio
+    environment:
+            MINIO_ROOT_USER: keti_root
+            MINIO_ROOT_PASSWORD: madcoder
+    restart: always
+    shm_size: '1gb'
+    ports:
+            - "54420:9000"
+            - "54421:9001"
+    volumes:
+            - /home/taehoon/Backup_Data/minIO_3dp_data:/data
+
+  mongo:
+    image: mongo
+    container_name : mongo_3pdx
+    restart: always
+    ports:
+            - 54427:27017
+    volumes:
+            - /home/taehoon/Backup_Data/mongo_3dp_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: keti_root
+      MONGO_INITDB_ROOT_PASSWORD: madcoder
