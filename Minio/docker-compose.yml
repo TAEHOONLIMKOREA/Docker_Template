@@ -1,5 +1,9 @@
 version: '3'
 
+networks:
+  3pdx-bridge:
+    external: true
+    
 services:
 
   minio:
