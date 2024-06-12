@@ -15,6 +15,8 @@ services:
     volumes:
       - /home/keti_data/Data/Postgres/data:/var/lib/postgresql/data
         #- /home/keti_data/Data/Postgres/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
+    networks:
+      - 3pdx-bridge
 
   adminer:
     image: adminer:latest
@@ -23,3 +25,5 @@ services:
     restart: always
     ports:
       - 54423:8080
+    networks:
+      - 3pdx-bridge
