@@ -3,16 +3,18 @@ version: '3'
 services:
 
   minio:
-    image: taehoony/minio_server:1.1
+    image: taehoony/minio_3pdx:1.2
     command: server /data --console-address ":9001"
     container_name: minio
     environment:
-            MINIO_ROOT_USER: keti_root
-            MINIO_ROOT_PASSWORD: madcoder
+      MINIO_ROOT_USER: keti_root
+      MINIO_ROOT_PASSWORD: madcoder
     restart: always
     shm_size: '1gb'
     ports:
-            - "59000:9000"
-            - "59001:9001"
+      - "59000:9000"
+      - "59001:9001"
     volumes:
-            - /home/taehoon/Backup_Data/minIO_3dp_data:/data
+      - /home/keti3dp/Minio/data:/data
+    networks:
+      - 3pdx-bridge
