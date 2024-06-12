@@ -1,33 +1,43 @@
-version: '3.8'
+version: '3'
+
+networks:
+  3pdx-bridge:
+    external: true
 
 services:
   mongo1:
-    image: mongo:latest
+    image: taehoony/mongo:1.0
     container_name: mongo_3pdx
     ports:
       - "55427:27017"
     volumes:
       - /home/keti3dp/disks/disk0/data/mongo:/data/db
+      - /home/keti3dp/Mongo/keyfile/mongo-keyfile:/etc/mongo-keyfile
     environment:
       MONGO_INITDB_ROOT_USERNAME: keti_root
       MONGO_INITDB_ROOT_PASSWORD: madcoder
       MONGO_INITDB_DATABASE: admin
       MONGO_INITDB_REPLICA_SET_NAME: "rs0"
-    command: ["mongod", "--replSet", "rs0"]
+    command: ["mongod", "--replSet", "rs0", "--keyFile", "/etc/mongo-keyfile"]
+    networks:
+      - 3pdx-bridge
 
   mongo2:
-    image: mongo:latest
+    image: taehoony/mongo:1.0
     container_name: mongo_3pdx_replica
     ports:
       - "55428:27017"
     volumes:
       - /home/keti3dp/disks/disk1/data/mongo:/data/db
+      - /home/keti3dp/Mongo/keyfile/mongo-keyfile:/etc/mongo-keyfile
     environment:
       MONGO_INITDB_ROOT_USERNAME: keti_root
       MONGO_INITDB_ROOT_PASSWORD: madcoder
       MONGO_INITDB_DATABASE: admin
       MONGO_INITDB_REPLICA_SET_NAME: "rs0"
-    command: ["mongod", "--replSet", "rs0"]
+    command: ["mongod", "--replSet", "rs0", "--keyFile", "/etc/mongo-keyfile"]
+    networks:
+      - 3pdx-bridge
 
 volumes:
   data1:

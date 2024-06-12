@@ -1,16 +1,21 @@
 # Use root/example as user/password credentials
 version: '3.1'
 
+networks:
+  3pdx-bridge:
+    external: true
+    
 services:
-
   mongo:
     image: mongo
     container_name : mongo_3pdx
     restart: always
     ports:
-            - 27017:27017
+      - 27017:27017
     volumes:
-            - /home/taehoon/Backup_Data/mongo_3dp_data:/data/db
+      - /home/taehoon/Backup_Data/mongo_3dp_data:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: keti_root
       MONGO_INITDB_ROOT_PASSWORD: madcoder
+    networks:
+      - 3pdx-bridge
