@@ -1,5 +1,9 @@
 version: "3"
 
+networks:
+  3pdx-bridge:
+    external: true
+    
 services:
   db:
     # 이미지는 최신이미지 사용하지 말기 ( 잘 안됨 )
