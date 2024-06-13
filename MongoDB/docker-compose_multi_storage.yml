@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 networks:
   3pdx-bridge:
@@ -6,39 +6,33 @@ networks:
 
 services:
   mongo1:
-    image: taehoony/mongo:1.0
+    image: taehoony/mongo:1.1
     container_name: mongo_3pdx
     ports:
       - "55427:27017"
     volumes:
       - /home/keti3dp/disks/disk0/data/mongo:/data/db
-      - /home/keti3dp/Mongo/keyfile/mongo-keyfile:/etc/mongo-keyfile
     environment:
       MONGO_INITDB_ROOT_USERNAME: keti_root
       MONGO_INITDB_ROOT_PASSWORD: madcoder
       MONGO_INITDB_DATABASE: admin
       MONGO_INITDB_REPLICA_SET_NAME: "rs0"
-    command: ["mongod", "--replSet", "rs0", "--keyFile", "/etc/mongo-keyfile"]
+    command: ["--replSet", "rs0" ,"--bind_ip_all", "--port", "27017", "--keyFile", "/etc/mongo-keyfile"]
     networks:
       - 3pdx-bridge
 
   mongo2:
-    image: taehoony/mongo:1.0
+    image: taehoony/mongo:1.1
     container_name: mongo_3pdx_replica
     ports:
       - "55428:27017"
     volumes:
       - /home/keti3dp/disks/disk1/data/mongo:/data/db
-      - /home/keti3dp/Mongo/keyfile/mongo-keyfile:/etc/mongo-keyfile
     environment:
       MONGO_INITDB_ROOT_USERNAME: keti_root
       MONGO_INITDB_ROOT_PASSWORD: madcoder
       MONGO_INITDB_DATABASE: admin
       MONGO_INITDB_REPLICA_SET_NAME: "rs0"
-    command: ["mongod", "--replSet", "rs0", "--keyFile", "/etc/mongo-keyfile"]
+    command: ["--replSet", "rs0" ,"--bind_ip_all", "--port", "27017", "--keyFile", "/etc/mongo-keyfile"]
     networks:
       - 3pdx-bridge
-
-volumes:
-  data1:
-  data2:
