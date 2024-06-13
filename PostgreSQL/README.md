@@ -1,0 +1,1 @@
+psql (PostgreSQL) 15.3 (Debian 15.3-1.pgdg110+1)
