@@ -1,0 +1,52 @@
+version: "3"
+
+networks:
+  3pdx-bridge:
+    external: true
+
+services:
+  postgres-primary:
+    image: taehoony/postgres:1.3
+    container_name: postgres_3pdx-primary
+    restart: always
+    ports:
+      - "55422:5432"
+    environment:
+      POSTGRES_USER: keti_root
+      POSTGRES_PASSWORD: madcoder
+      POSTGRES_DB: keti_3pdx
+    volumes:
+      - /home/keti3dp/disks/disk0/data/postgres:/var/lib/postgresql/data
+      - ./primary/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./primary/set_pg_hba.sh:/docker-entrypoint-initdb.d/set_pg_hba.sh
+    networks:
+      - 3pdx-bridge
+
+  postgres-replica:
+    image: taehoony/postgres:1.3
+    container_name: postgres_3pdx-replica
+    environment:
+      POSTGRES_USER: keti_root
+      POSTGRES_PASSWORD: madcoder
+      POSTGRES_DB: keti_3pdx
+      PRIMARY_HOST: postgres-primary
+    ports:
+      - "55423:5432"
+    volumes:
+      - /home/keti3dp/disks/disk1/data/postgres:/var/lib/postgresql/data
+      - ./replica/init.sh:/docker-entrypoint-initdb.d/init.sh
+    depends_on:
+      - postgres-primary
+    networks:
+      - 3pdx-bridge
+
+  adminer:
+    image: taehoony/adminer:1.0
+    container_name: postgres_3pdx-adminer
+    depends_on:
+      - postgres-primary
+    restart: always
+    ports:
+      - "54424:8080"
+    networks:
+      - 3pdx-bridge
