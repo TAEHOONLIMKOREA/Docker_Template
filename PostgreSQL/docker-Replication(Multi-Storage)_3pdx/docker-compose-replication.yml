@@ -47,6 +47,6 @@ services:
       - postgres-primary
     restart: always
     ports:
-      - "54424:8080"
+      - "55424:8080"
     networks:
       - 3pdx-bridge
