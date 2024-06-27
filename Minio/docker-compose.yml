@@ -1,7 +1,7 @@
 version: '3'
 
 networks:
-  3pdx-bridge:
+  3pdx-bridge: #원하는 네트워크 명으로 변경 가능
     external: true
     
 services:
@@ -10,7 +10,7 @@ services:
     image: taehoony/minio:1.3
     command: server /data --console-address ":9001"
     container_name: minio
-    environment:
+    environment: # 환경변수 설정
       MINIO_ROOT_USER: keti_root
       MINIO_ROOT_PASSWORD: madcoder
     restart: always
