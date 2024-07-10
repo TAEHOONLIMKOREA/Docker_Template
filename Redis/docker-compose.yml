@@ -24,12 +24,3 @@ services:
     # 컨테이너 종료시 재시작 여부 설정
     restart: always
     command: redis-server /usr/local/etc/redis/redis.conf
-  # 레디스 모니터링 서비스
-  redis_insight:
-    image: redislabs/redisinsight:latest
-    container_name: redis_insight
-    restart: always
-    ports:
-      - 58001:8001
-    volumes:
-      - /home/taehoon/Backup_Data/redis_3dp_data:/db
