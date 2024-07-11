@@ -2,7 +2,7 @@ version: '3.1'
 
 services:
   influxdb:
-    image: influxdb:latest
+    image: taehoony/influx:1.0
     container_name: influx
     ports:
       - "58086:8086"
@@ -17,7 +17,7 @@ services:
       - net3dp
 
   grafana:
-    image: grafana/grafana:latest
+    image: taehoony/grafana:1.0
     container_name: grafana
     ports:
       - "53000:3000"
