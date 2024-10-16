@@ -1,0 +1,15 @@
+version: '3'
+
+services:      
+  timescaledb:
+  image: timescale/timescaledb:latest-pg14        
+  container_name: Timescaledb_Sensor
+  restart: always                        
+  ports:                       
+    - "55401:5432"
+  environment:          
+    POSTGRES_DB: "timescaledb_sensor"
+    POSTGRES_USER: "keti_root"         
+    POSTGRES_PASSWORD: "madcoder"
+  volumes:                           
+    - /home/wonch/TimescaleDB_Sensor/timescaledb/data:/var/lib/postgresql/data
