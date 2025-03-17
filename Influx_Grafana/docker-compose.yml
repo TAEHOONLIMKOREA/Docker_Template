@@ -2,7 +2,10 @@ version: '3.1'
 
 networks:
   net3dp:
-    external: true
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.19.0.0/24
 
 services:
   influxdb:
@@ -18,7 +21,8 @@ services:
       - ./influxdb-data:/var/lib/influxdb
     restart: always
     networks:
-      - net3dp
+      net3dp:
+        ipv4_address: 172.19.0.2
 
   grafana:
     image: taehoony/grafana:1.0
@@ -31,5 +35,6 @@ services:
     volumes:
       - ./grafana-data:/var/lib/grafana
     networks:
-      - net3dp
+      net3dp:
+        ipv4_address: 172.19.0.4
     restart: always
