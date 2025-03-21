@@ -2,7 +2,7 @@ version: '3'
 
 services:      
   timescaledb:
-  image: timescale/timescaledb:latest-pg14        
+  image: taehoony/timescaledb:1.0        
   container_name: Timescaledb_Sensor
   restart: always                        
   ports:                       
