@@ -30,4 +30,5 @@ services:
     restart: always
     command: redis-server /usr/local/etc/redis/redis.conf
     networks:
-      - 3pdx-bridge
+      3pdx-bridge:
+        ipv4_address: 172.23.0.4
