@@ -21,7 +21,7 @@ services:
       - ./primary/set_pg_hba.sh:/docker-entrypoint-initdb.d/set_pg_hba.sh
     networks:
       3pdx-bridge:
-        ipv4_address: 172.23.0.2
+        ipv4_address: 172.23.0.9
 
   postgres-replica:
     image: taehoony/postgres:1.3
