@@ -27,4 +27,5 @@ services:
       - /home/keti3dp/disks/disk8/data/minio:/data7
     command: server /data1 /data2 /data3 /data4 /data5 /data6 /data7 --console-address ":9001"
     networks:
-      - 3pdx-bridge
+      3pdx-bridge:
+        ipv4_address: 172.23.0.6
