@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3'
 
 networks:
   3pdx-bridge:
@@ -6,7 +6,7 @@ networks:
 
 services:
   mongo1:
-    image: taehoony/mongo:1.1
+    image: taehoony/mongo:1.4
     container_name: mongo_3pdx
     ports:
       - "55427:27017"
@@ -19,10 +19,11 @@ services:
       MONGO_INITDB_REPLICA_SET_NAME: "rs0"
     command: ["--replSet", "rs0" ,"--bind_ip_all", "--port", "27017", "--keyFile", "/etc/mongo-keyfile"]
     networks:
-      - 3pdx-bridge
+      3pdx-bridge:
+        ipv4_address: 172.23.0.8
 
   mongo2:
-    image: taehoony/mongo:1.1
+    image: taehoony/mongo:1.4
     container_name: mongo_3pdx_replica
     ports:
       - "55428:27017"
@@ -35,4 +36,5 @@ services:
       MONGO_INITDB_REPLICA_SET_NAME: "rs0"
     command: ["--replSet", "rs0" ,"--bind_ip_all", "--port", "27017", "--keyFile", "/etc/mongo-keyfile"]
     networks:
-      - 3pdx-bridge
+      3pdx-bridge:
+        ipv4_address: 172.23.0.9
