@@ -3,31 +3,59 @@ services:
     image: ollama/ollama:latest
     container_name: ollama
     ports:
-      - "55600:11434"
+      - "55301:11434"
     volumes:
-      - ollama_data:/root/.ollama
+      - ./volume/ollama:/root/.ollama
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=1
+      - OLLAMA_GPU_OVERHEAD=0
+      - OLLAMA_KEEP_ALIVE=-1
     restart: unless-stopped
+    entrypoint: ["/bin/bash", "-c"]
+    command:
+      - |
+        /bin/ollama serve &
+        sleep 10
+
+        # 모델이 없으면 다운로드
+        if ! ollama list | grep -q "qwen3-vl:30b"; then
+          echo "Downloading qwen3-vl:30b..."
+          ollama pull qwen3-vl:30b
+        else
+          echo "qwen3-vl:30b already exists"
+        fi
+
+        ollama list
+
+        # 모델 프리로드
+        echo "test" | ollama run qwen3-vl:30b --keepalive -1 > /dev/null 2>&1 &
+
+        wait
     deploy:
       resources:
         reservations:
           devices:
             - driver: nvidia
-              count: all
+              device_ids: ["1"]
               capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 120s  # 모델 다운로드 시간 고려 (2분)
+
 
   open-webui:
     image: ghcr.io/open-webui/open-webui:ollama
     container_name: open-webui
     ports:
-      - "55601:8080"
+      - "55302:8080"
     volumes:
-      - open_webui_data:/app/backend/data
+      - ./volume/open-webui:/app/backend/data
     environment:
       - OLLAMA_BASE_URL=http://ollama:11434
     depends_on:
-      - ollama
+      ollama:
+        condition: service_healthy
     restart: unless-stopped
-
-volumes:
-  ollama_data:
-  open_webui_data:
