@@ -46,7 +46,7 @@ services:
         
   adminer:
     image: taehoony/pgadmin4:1.0
-    container_name: postgres_3pdx-adminer
+    container_name: postgres_3pdx-pgadmin
     depends_on:
       - postgres-primary
     restart: always
